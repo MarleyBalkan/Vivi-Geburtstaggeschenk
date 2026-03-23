@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Willkommen • Criminal Minds • Grey's Anatomy</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // Fallback-Funktion, falls main.js nicht funktioniert
+        function goToMain() {
+            window.location.href = 'main.html';
+        }
+    </script>
+</head>
+<body class="intro-page">
+    <div class="intro-container">
+        <div class="intro-header">
+            <h1>Willkommen im BAU & Grey Sloan Memorial</h1>
+            <p>Klicke auf einen Charakter, um seine persönliche Nachricht zu lesen</p>
+        </div>
+
+        <div class="characters-grid" id="charactersGrid">
+            <div class="character-card" data-character="garcia">
+                <div class="character-avatar">🖥️💖</div>
+                <div class="character-name">Penelope Garcia</div>
+                <div class="hidden-message" style="display: none;">💖 Baby Girl! Du bist ein technisches Wunder und das Herz unseres Teams. Ich hab schon eine Playlist für deine Party gemacht!</div>
+            </div>
+            <div class="character-card" data-character="reid">
+                <div class="character-avatar">📚🧠</div>
+                <div class="character-name">Dr. Spencer Reid</div>
+                <div class="hidden-message" style="display: none;">📚 Wusstest du, dass Geburtstage seit dem alten Ägypten gefeiert werden? Ich hoffe, deiner wird genauso unvergesslich wie die Entdeckung des Feuers.</div>
+            </div>
+            <div class="character-card" data-character="meredith">
+                <div class="character-avatar">🩺✨</div>
+                <div class="character-name">Meredith Grey</div>
+                <div class="hidden-message" style="display: none;">🩺 Du bist stark, klug und verdammt tough. Genau wie wir hier im Grey Sloan. Feiere dich selbst – du hast es verdient.</div>
+            </div>
+            <div class="character-card" data-character="cristina">
+                <div class="character-avatar">🔪🧠</div>
+                <div class="character-name">Cristina Yang</div>
+                <div class="hidden-message" style="display: none;">🔪 Mach heute etwas Großartiges. Oder geh nach Hause. Ich empfehle: Tanz, Kuchen und ein Skalpell – aber nur zum Kuchen anschneiden!</div>
+            </div>
+        </div>
+
+        <div class="message-area" id="messageArea">
+            <!-- Hier erscheint die Nachricht beim Klick -->
+        </div>
+
+        <div class="intro-footer">
+            <button id="enterBtn" class="enter-btn" onclick="goToMain()">📂 ZUR FALLAKTE 📂</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <script src="main.js"></script>
+</body>
+</html>

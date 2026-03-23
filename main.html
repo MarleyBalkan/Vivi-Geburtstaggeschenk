@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fallakte • Viviana Maria Bîrcea • Vertraulich</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="case-page">
+    <div class="case-file">
+        <div class="file-header">
+            <div class="fbi-section">
+                <div class="fbi-badge">🔍 FBI • BAU • VERTRAULICH</div>
+                <div class="case-number">FALLNR: 09-09-<span id="currentYear"></span></div>
+            </div>
+            <div class="grey-section">
+                <div class="ekg-line"></div>
+                <div class="grey-text">🏥 GREY SLOAN MEMORIAL</div>
+                <div class="ekg-line"></div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="case-tabs">
+            <button class="tab-btn active" data-tab="profile">📋 Profil</button>
+            <button class="tab-btn" data-tab="letters" id="lettersTabBtn">💌 Briefe & Erinnerungen 🔒</button>
+            <button class="tab-btn" data-tab="moments" id="momentsTabBtn">📸 Momente 🔒</button>
+        </div>
+
+        <!-- TAB 1: Profil (immer sichtbar) -->
+        <div class="tab-content active" id="tab-profile">
+            <div class="file-content">
+                <div class="column left-column">
+                    <div class="section-title">📂 PERSÖNLICHE FALLANALYSE</div>
+                    <div class="case-detail">
+                        <div class="case-label">▸ Identität</div>
+                        <div class="case-value">Viviana Maria Bîrcea <span class="belle-accent">„Belle“</span></div>
+                    </div>
+                    <div class="case-detail">
+                        <div class="case-label">▸ Profil (BAU)</div>
+                        <div class="case-value">🧠 Exzellente Analysefähigkeiten • Criminal Minds-Expertin • Dr. Spencer Reid-Intelligenz.</div>
+                    </div>
+                    <div class="case-detail">
+                        <div class="case-label">▸ Besondere Merkmale</div>
+                        <div class="case-value">🥀 Trägerin der verzauberten Rose • Grey Sloan Memorial • Prinzessin Belle im Herzen.</div>
+                    </div>
+                </div>
+                <div class="column right-column">
+                    <div class="section-title">🩺 PATIENTENAKTE</div>
+                    <div class="case-detail">
+                        <div class="case-label">▸ Diagnose</div>
+                        <div class="case-value medical-value">✨ Akute Geburtstagsfreude, kompliziert durch Binge-Watching. Herz: zu groß für diese Welt.</div>
+                    </div>
+                    <div class="case-detail">
+                        <div class="case-label">▸ Behandlungsplan</div>
+                        <div class="case-value medical-value">📋 1x täglich Geburtstagskuchen • Unbegrenzte Komplimente • Keine McDreamy-Dramen.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Briefe & Erinnerungen -->
+        <div class="tab-content" id="tab-letters">
+            <div class="locked-content" id="lettersLocked">
+                <div class="lock-icon">🔒</div>
+                <h3>Briefe & Erinnerungen gesperrt</h3>
+                <p>Diese Nachrichten werden am <strong>9. September</strong> freigeschaltet.</p>
+            </div>
+            <div class="letters-container" id="lettersUnlocked" style="display: none;">
+                <h3 class="album-title">💌 Briefe & Erinnerungen für dich</h3>
+                <div id="lettersList"></div>
+                <p class="album-hint">📝 Jedes Jahr kommt ein neuer Brief dazu – so wächst deine Sammlung!</p>
+            </div>
+        </div>
+
+        <!-- TAB 3: Momente (mit automatischer Speicherung) -->
+        <div class="tab-content" id="tab-moments">
+            <div class="locked-content" id="momentsLocked">
+                <div class="lock-icon">🔒</div>
+                <h3>Momente gesperrt</h3>
+                <p>Diese Sammlung wird am <strong>9. September</strong> freigeschaltet.</p>
+            </div>
+            <div class="moments-container" id="momentsUnlocked" style="display: none;">
+                <h3 class="album-title">📸 Meine Momente</h3>
+                <p class="moments-intro">
+                    🌟 Hier kannst du <strong>jede schöne Erinnerung</strong> festhalten – mit Text und/oder Bild.<br>
+                    <strong>Alles wird automatisch gespeichert!</strong> 💖
+                </p>
+                
+                <!-- Eingabe-Formular -->
+                <div class="moment-form">
+                    <h4>📝 Neuen Moment hinzufügen</h4>
+                    
+                    <select id="momentType">
+                        <option value="criminal">🔍 Criminal Minds</option>
+                        <option value="greys">🩺 Grey's Anatomy</option>
+                        <option value="life">💫 Aus dem echten Leben</option>
+                        <option value="both">🌟 Allgemein / Beides</option>
+                    </select>
+                    
+                    <input type="text" id="momentTitle" placeholder="Titel / Überschrift">
+                    <textarea id="momentDescription" rows="3" placeholder="Beschreibe deine Erinnerung..."></textarea>
+                    
+                    <div class="image-upload-area">
+                        <label for="momentImage" class="image-upload-label">📷 Bild hinzufügen (optional)</label>
+                        <input type="file" id="momentImage" accept="image/*">
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+                    
+                    <button id="saveMomentBtn" class="save-moment-btn">✨ Moment speichern ✨</button>
+                </div>
+                
+                <!-- Anzeige der gespeicherten Momente -->
+                <div class="moments-gallery">
+                    <h4>📖 Meine gesammelten Momente</h4>
+                    <div id="momentsList"></div>
+                </div>
+                
+                <!-- Backup-Bereich (für dauerhafte Sicherung) -->
+                <div class="backup-simple">
+                    <button id="exportBackupBtn" class="backup-simple-btn">💾 Alle Momente als Backup speichern</button>
+                    <button id="importBackupBtn" class="backup-simple-btn import">📂 Backup wiederherstellen</button>
+                    <input type="file" id="importBackupFile" accept=".json" style="display: none;">
+                    <p class="backup-hint">💡 Speichere deine Momente als Datei auf deinem Computer – so sind sie für immer sicher!</p>
+                    <div id="backupStatus" class="backup-status"></div>
+                </div>
+                
+                <p class="album-hint">💡 Deine Momente werden automatisch im Browser gespeichert. Mit dem Backup-Button sicherst du sie zusätzlich auf deinem Computer.</p>
+            </div>
+        </div>
+
+        <!-- Rose Bereich -->
+        <div class="rose-sanctum">
+            <div class="rose-container">
+                <div class="glass-dome" id="roseCanvasWrapper">
+                    <div class="dome-reflection"></div>
+                    <canvas id="roseCanvas" width="200" height="200"></canvas>
+                    <div class="magic-glow"></div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-number" id="countdownDays">--</div>
+                    <div class="countdown-label">Tage bis zur Auflösung der Verzauberung</div>
+                    <div class="rose-message" id="roseHint">🌹 Berühre die verzauberte Rose 🌹</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-area">
+            <button class="celebrate-btn" id="celebrateBtn">🔎 FALL SCHLIESSEN • OP ERFOLGREICH 🎉</button>
+        </div>
+
+        <div class="secret-message" id="secretMsg">
+            💛 „Das Märchen, das du suchst, bist du selbst. Special Agent Belle Viviana, du hast das Biest besiegt und den ganzen Grey Sloan OP-Saal zum Jubeln gebracht. Happy Birthday!“ 💛<br>
+            🕵️‍♀️🌹🏥
+        </div>
+
+        <div id="charactersOverlay" class="characters-overlay" style="display: none;">
+            <div class="overlay-content">
+                <h2>🎉 Deine Lieblingscharaktere gratulieren! 🎉</h2>
+                <div class="congrats-grid" id="congratsGrid"></div>
+                <button id="closeOverlayBtn" class="close-overlay">✨ Schließen ✨</button>
+            </div>
+        </div>
+
+        <footer>
+            ⚡ FALLACHTUNG: Dieses Dokument unterliegt der Geburtstagsklasse-A.
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
