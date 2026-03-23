@@ -2,7 +2,6 @@
 if (document.body.classList.contains('intro-page')) {
     const characters = document.querySelectorAll('.character-card');
     const messageArea = document.getElementById('messageArea');
-    const enterBtn = document.getElementById('enterBtn');
     
     function showMessage(name, message) {
         messageArea.innerHTML = `<strong>${name}</strong><br><br>${message}`;
@@ -24,15 +23,18 @@ if (document.body.classList.contains('intro-page')) {
         });
     });
     
-    enterBtn.addEventListener('click', () => {
-        canvasConfetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
-        document.body.style.transition = 'opacity 0.5s';
-        document.body.style.opacity = '0';
-        setTimeout(() => {
-            window.location.href = 'main.html';
-        }, 500);
-    });
+    // Der Link "Zur Fallakte" ist jetzt ein <a>-Tag in index.html – kein JavaScript nötig!
+    // Konfetti-Effekt für den Link (optional)
+    const enterLink = document.getElementById('enterBtn');
+    if (enterLink) {
+        enterLink.addEventListener('click', (e) => {
+            canvasConfetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+            // Kein e.preventDefault() – der Link funktioniert normal
+        });
+    }
 }
+
+// ========= REST DEINER main.js (Hauptseite) bleibt unverändert =========
 
 // ========= 2. HAUPTSEITE =========
 else if (document.body.classList.contains('case-page')) {
@@ -280,6 +282,30 @@ else if (document.body.classList.contains('case-page')) {
         });
     }
     
+    // ---------- BLUR-EFFEKT FÜR PROFIL-TAB ----------
+    function updateBlurEffect() {
+        const isBirthday = isBirthdayToday();
+        const profileContent = document.querySelector('#tab-profile .file-content');
+        
+        if (profileContent) {
+            if (!isBirthday) {
+                profileContent.style.filter = 'blur(6px)';
+                profileContent.style.transition = 'filter 0.5s ease';
+                if (!document.getElementById('blurHint')) {
+                    const hint = document.createElement('div');
+                    hint.id = 'blurHint';
+                    hint.className = 'blur-hint';
+                    hint.innerHTML = '🔒 Diese Akte wird am <strong>9. September</strong> freigeschaltet 🔒';
+                    profileContent.parentElement.insertBefore(hint, profileContent);
+                }
+            } else {
+                profileContent.style.filter = 'blur(0px)';
+                const hint = document.getElementById('blurHint');
+                if (hint) hint.remove();
+            }
+        }
+    }
+    
     // ---------- SPERR-LOGIK ----------
     function updateLockedTabs() {
         const isBirthday = isBirthdayToday();
@@ -316,6 +342,8 @@ else if (document.body.classList.contains('case-page')) {
                 momentsUnlocked.style.display = 'none';
             }
         }
+        
+        updateBlurEffect();
     }
     
     // ---------- TAB-FUNKTION ----------
@@ -336,6 +364,10 @@ else if (document.body.classList.contains('case-page')) {
                 
                 btn.classList.add('active');
                 if (targetContent) targetContent.classList.add('active');
+                
+                if (tabId === 'profile') {
+                    updateBlurEffect();
+                }
             });
         });
     }
@@ -512,7 +544,7 @@ else if (document.body.classList.contains('case-page')) {
             });
         }
         
-        // ---------- CHARAKTER-GRATULATION (FIXED) ----------
+        // ---------- CHARAKTER-GRATULATION ----------
         const overlay = document.getElementById('charactersOverlay');
         const congratsGrid = document.getElementById('congratsGrid');
         const closeOverlayBtn = document.getElementById('closeOverlayBtn');
