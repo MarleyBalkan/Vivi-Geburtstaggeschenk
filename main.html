@@ -6,7 +6,6 @@
     <title>Fallakte • Viviana Maria Bîrcea • Vertraulich</title>
     <link rel="stylesheet" href="style.css">
     <script>
-        // Prüfen, ob Startseite zuvor besucht wurde – sonst weiterleiten
         if (!sessionStorage.getItem('visitedStartpage')) {
             window.location.href = 'index.html';
         }
@@ -31,6 +30,7 @@
             <button class="tab-btn active" data-tab="profile">📋 Profil</button>
             <button class="tab-btn" data-tab="letters" id="lettersTabBtn">💌 Briefe & Erinnerungen 🔒</button>
             <button class="tab-btn" data-tab="moments" id="momentsTabBtn">📸 Momente 🔒</button>
+            <button class="tab-btn" data-tab="quiz" id="quizTabBtn">❓ Serien-Quiz 🔒</button>
         </div>
 
         <!-- TAB 1: Profil -->
@@ -125,6 +125,31 @@
                 </div>
                 
                 <p class="album-hint">💡 Deine Momente werden automatisch im Browser gespeichert. Mit dem Backup-Button sicherst du sie zusätzlich auf deinem Computer.</p>
+            </div>
+        </div>
+
+        <!-- TAB 4: Serien-Quiz (gesperrt bis 9.9.) -->
+        <div class="tab-content" id="tab-quiz">
+            <div class="locked-content" id="quizLocked">
+                <div class="lock-icon">🔒</div>
+                <h3>Serien-Quiz gesperrt</h3>
+                <p>Das Quiz wird am <strong>9. September</strong> freigeschaltet.</p>
+            </div>
+            <div class="quiz-container" id="quizUnlocked" style="display: none;">
+                <h3 class="quiz-title">❓ Criminal Minds & Grey's Anatomy Quiz</h3>
+                <p class="quiz-subtitle">Teste dein Wissen! (12 Fragen)</p>
+                
+                <div class="quiz-progress" id="quizProgress">
+                    Frage <span id="currentQ">1</span> von <span id="totalQ">12</span>
+                </div>
+                
+                <div class="quiz-question" id="quizQuestion">
+                    <p><strong>Frage 1:</strong> Lade Fragen...</p>
+                </div>
+                <div class="quiz-options" id="quizOptions"></div>
+                <div class="quiz-feedback" id="quizFeedback"></div>
+                <button id="nextQuestionBtn" class="quiz-next" style="display: none;">Nächste Frage →</button>
+                <div class="quiz-result" id="quizResult" style="display: none;"></div>
             </div>
         </div>
 

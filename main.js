@@ -42,12 +42,9 @@ else if (document.body.classList.contains('case-page')) {
         return today.getDate() === 9 && today.getMonth() === 8;
     }
     
-    // Prüft, ob der Geburtstag JEMALS freigeschaltet wurde
     function isUnlockedForever() {
         const unlocked = localStorage.getItem('viviana_birthday_unlocked');
         if (unlocked === 'true') return true;
-        
-        // Wenn heute Geburtstag ist, wird für immer freigeschaltet
         if (isBirthdayToday()) {
             localStorage.setItem('viviana_birthday_unlocked', 'true');
             return true;
@@ -55,7 +52,6 @@ else if (document.body.classList.contains('case-page')) {
         return false;
     }
     
-    // Zählt bis zum NÄCHSTEN 9. September (auch wenn schon freigeschaltet)
     function getDaysUntilBirthday() {
         const today = new Date();
         let birthday = new Date(today.getFullYear(), 8, 9);
@@ -272,9 +268,33 @@ else if (document.body.classList.contains('case-page')) {
     
     // ---------- BRIEFE ----------
     const letters = [
-        { year: 2025, content: "Liebe Viviana, zu deinem Geburtstag wünsche ich dir... [Hier deine persönliche Nachricht einfügen] Alles Liebe, [Dein Name]", isFuture: false },
-        { year: 2026, content: "✨ Hier entsteht nächstes Jahr dein nächster Brief ✨ Ich werde ihn rechtzeitig füllen – versprochen!", isFuture: true },
-        { year: 2027, content: "✨ Ein weiteres Jahr, ein weiterer Brief – ich freue mich darauf, ihn zu schreiben! ✨", isFuture: true }
+        { 
+            year: 2025, 
+            content: `Liebe Viviana,
+
+zu deinem Geburtstag wünsche ich dir so vieles… aber am meisten wünsche ich dir, dass du immer weißt, wie besonders und toll du bist.
+
+Du kombinierst die Klugheit von Spencer Reid, das Herz von Meredith Grey und die Magie von Belle und dazu noch deine eigene, einzigartige Art, die Menschen um dich herum strahlen zu lassen. Weil du selber so sehr strahlst, dass du es ganz einfach überträgst.
+
+Zudem wünsche ich dir, dass du ALLES in deinem Leben erreichst, was du dir vornimmst. Denk nicht so viel über die anderen nach und kümmere dich auch mal um dich. Denn DU bist das wichtigste! Du bist eine Bereicherung für diese Welt und ich bin wirklich sehr froh darüber, dass ich dich kennenlernen durfte. Ich weiß zwar nicht genau, womit ich das verdient habe, weswegen ich noch dankbarer bin.
+
+Das sage ich zwar immer und wahrscheinlich hast du es auch ziemlich satt, aber falls du was brauchst oder auch nicht brauchst. Ich bin da für dich.
+Für dich alles!
+
+Alles Liebe,
+Marley`, 
+            isFuture: false 
+        },
+        { 
+            year: 2026, 
+            content: "✨ Hier entsteht nächstes Jahr dein nächster Brief ✨ Ich werde ihn rechtzeitig füllen – versprochen!", 
+            isFuture: true 
+        },
+        { 
+            year: 2027, 
+            content: "✨ Ein weiteres Jahr, ein weiterer Brief – ich freue mich darauf, ihn zu schreiben! ✨", 
+            isFuture: true 
+        }
     ];
     
     function renderLetters() {
@@ -290,6 +310,129 @@ else if (document.body.classList.contains('case-page')) {
             `;
             container.appendChild(card);
         });
+    }
+    
+    // ---------- QUIZ ----------
+    const quizQuestions = [
+        { question: "Wie heißt Dr. Spencer Reids Mutter?", options: ["Dr. Elizabeth Reid", "Diana Reid", "Dr. Margaret Reid", "Sarah Reid"], correct: 1, series: "CM" },
+        { question: "Welcher Spitzname gibt Penelope Garcia Derek Morgan?", options: ["Sweet Cheeks", "Baby Boy", "Chocolate Thunder", "Hot Stuff"], correct: 2, series: "CM" },
+        { question: "Welches Team leitet Aaron Hotchner?", options: ["SWAT", "BAU", "FUGITIVE", "CTU"], correct: 1, series: "CM" },
+        { question: "Wie heißt die Schauspielerin von Penelope Garcia?", options: ["A.J. Cook", "Kirsten Vangsness", "Paget Brewster", "Shemar Moore"], correct: 1, series: "CM" },
+        { question: "Welcher Charakter sagt 'Wheels up'?", options: ["Derek Morgan", "David Rossi", "Aaron Hotchner", "Emily Prentiss"], correct: 2, series: "CM" },
+        { question: "Wie heißt Meredith Greys Mutter?", options: ["Dr. Addison Montgomery", "Dr. Ellis Grey", "Dr. Catherine Fox", "Dr. Susan Grey"], correct: 1, series: "GA" },
+        { question: "Welcher Charakter sagt 'It's a beautiful day to save lives'?", options: ["Derek Shepherd", "Meredith Grey", "Miranda Bailey", "Richard Webber"], correct: 0, series: "GA" },
+        { question: "Wie heißt das Krankenhaus in Grey's Anatomy?", options: ["Seattle Grace", "Grey Sloan Memorial", "Beide Namen", "Seattle Presbyterian"], correct: 2, series: "GA" },
+        { question: "Welcher Song ist untrennbar mit Grey's Anatomy verbunden?", options: ["Chasing Cars", "How to Save a Life", "Beide", "Fix You"], correct: 2, series: "GA" },
+        { question: "Wie heißt Derek Shepherds Spitzname?", options: ["McDreamy", "McSteamy", "McDreamy & McSteamy", "Dr. Dream"], correct: 0, series: "GA" },
+        { question: "Welcher Charakter ist in beiden Serien ein FBI-Profilier?", options: ["Dr. Spencer Reid", "Derek Morgan", "Dr. Aaron Hotchner", "Keiner"], correct: 3, series: "Mix" },
+        { question: "Wie viele Staffeln hat Criminal Minds?", options: ["10", "12", "15", "17"], correct: 2, series: "Mix" }
+    ];
+    
+    let currentQuestion = 0;
+    let score = 0;
+    let quizAnswered = false;
+    
+    function loadQuizQuestion() {
+        const q = quizQuestions[currentQuestion];
+        const seriesBadge = q.series === 'CM' ? '🔍 Criminal Minds' : (q.series === 'GA' ? '🩺 Grey\'s Anatomy' : '🌟 Mix');
+        const qElem = document.getElementById('quizQuestion');
+        if (qElem) {
+            qElem.innerHTML = `<p><strong>Frage ${currentQuestion + 1}/${quizQuestions.length}</strong> <span style="font-size:0.8rem; color:#b87c4f;">(${seriesBadge})</span><br>${q.question}</p>`;
+        }
+        
+        const optionsDiv = document.getElementById('quizOptions');
+        if (optionsDiv) {
+            optionsDiv.innerHTML = '';
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.innerText = opt;
+                btn.addEventListener('click', () => handleQuizAnswer(btn, idx === q.correct));
+                optionsDiv.appendChild(btn);
+            });
+        }
+        
+        const feedbackDiv = document.getElementById('quizFeedback');
+        if (feedbackDiv) feedbackDiv.innerHTML = '';
+        
+        const nextBtn = document.getElementById('nextQuestionBtn');
+        if (nextBtn) nextBtn.style.display = 'none';
+        
+        quizAnswered = false;
+    }
+    
+    function handleQuizAnswer(btn, isCorrect) {
+        if (quizAnswered) return;
+        quizAnswered = true;
+        
+        const feedbackDiv = document.getElementById('quizFeedback');
+        if (isCorrect) {
+            score++;
+            if (feedbackDiv) feedbackDiv.innerHTML = '✅ Richtig! Gut gemacht!';
+            btn.classList.add('correct');
+        } else {
+            const correctAnswer = quizQuestions[currentQuestion].options[quizQuestions[currentQuestion].correct];
+            if (feedbackDiv) feedbackDiv.innerHTML = `❌ Leider falsch. Die richtige Antwort wäre: ${correctAnswer}`;
+            btn.classList.add('wrong');
+        }
+        
+        const allOptions = document.querySelectorAll('.quiz-option');
+        allOptions.forEach(opt => opt.style.pointerEvents = 'none');
+        
+        const nextBtn = document.getElementById('nextQuestionBtn');
+        if (nextBtn) {
+            nextBtn.style.display = 'block';
+            if (currentQuestion + 1 === quizQuestions.length) {
+                nextBtn.innerText = 'Ergebnis anzeigen';
+            }
+        }
+    }
+    
+    function nextQuizQuestion() {
+        if (currentQuestion + 1 < quizQuestions.length) {
+            currentQuestion++;
+            loadQuizQuestion();
+        } else {
+            showQuizResult();
+        }
+    }
+    
+    function showQuizResult() {
+        const percentage = (score / quizQuestions.length) * 100;
+        let message = '';
+        let emoji = '';
+        if (percentage === 100) {
+            message = '🏆 Perfekt! Du bist ein echter Profiler & Chirurg! Du kennst beide Serien in- und auswendig!';
+            emoji = '🏆🎉';
+        } else if (percentage >= 80) {
+            message = '🎉 Hervorragend! Du kennst dich richtig gut aus! Ein paar Folgen mehr und du bist Profi!';
+            emoji = '🎉📺';
+        } else if (percentage >= 60) {
+            message = '👍 Gut gemacht! Noch ein bisschen Binge-Watching und du kennst alles!';
+            emoji = '👍🍿';
+        } else {
+            message = '📺 Weiter so! Es gibt noch so viele tolle Folgen zu entdecken!';
+            emoji = '📺💪';
+        }
+        
+        const resultDiv = document.getElementById('quizResult');
+        if (resultDiv) {
+            resultDiv.innerHTML = `
+                <p>✨ Du hast <strong>${score}</strong> von <strong>${quizQuestions.length}</strong> Fragen richtig beantwortet ✨</p>
+                <p>${emoji} ${message}</p>
+            `;
+            resultDiv.style.display = 'block';
+        }
+        
+        const nextBtn = document.getElementById('nextQuestionBtn');
+        if (nextBtn) nextBtn.style.display = 'none';
+        
+        const optionsDiv = document.getElementById('quizOptions');
+        if (optionsDiv) optionsDiv.innerHTML = '<p style="text-align:center;">✨ Quiz abgeschlossen! ✨</p>';
+        
+        if (typeof canvasConfetti !== 'undefined') {
+            canvasConfetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#e6b422', '#c53030', '#2c7a6e'] });
+        }
     }
     
     // ---------- BLUR-EFFEKT ----------
@@ -321,14 +464,18 @@ else if (document.body.classList.contains('case-page')) {
         const isUnlocked = isUnlockedForever();
         const lettersTab = document.getElementById('lettersTabBtn');
         const momentsTab = document.getElementById('momentsTabBtn');
+        const quizTab = document.getElementById('quizTabBtn');
         
         if (lettersTab) lettersTab.innerHTML = isUnlocked ? '💌 Briefe & Erinnerungen' : '💌 Briefe & Erinnerungen 🔒';
         if (momentsTab) momentsTab.innerHTML = isUnlocked ? '📸 Momente' : '📸 Momente 🔒';
+        if (quizTab) quizTab.innerHTML = isUnlocked ? '❓ Serien-Quiz' : '❓ Serien-Quiz 🔒';
         
         const lettersLocked = document.getElementById('lettersLocked');
         const lettersUnlocked = document.getElementById('lettersUnlocked');
         const momentsLocked = document.getElementById('momentsLocked');
         const momentsUnlocked = document.getElementById('momentsUnlocked');
+        const quizLocked = document.getElementById('quizLocked');
+        const quizUnlocked = document.getElementById('quizUnlocked');
         
         if (lettersLocked && lettersUnlocked) {
             if (isUnlocked) {
@@ -352,6 +499,18 @@ else if (document.body.classList.contains('case-page')) {
                 momentsUnlocked.style.display = 'none';
             }
         }
+        if (quizLocked && quizUnlocked) {
+            if (isUnlocked) {
+                quizLocked.style.display = 'none';
+                quizUnlocked.style.display = 'block';
+                currentQuestion = 0;
+                score = 0;
+                loadQuizQuestion();
+            } else {
+                quizLocked.style.display = 'block';
+                quizUnlocked.style.display = 'none';
+            }
+        }
         
         updateBlurEffect();
     }
@@ -368,6 +527,7 @@ else if (document.body.classList.contains('case-page')) {
                 
                 if (tabId === 'letters' && !isUnlockedForever()) return;
                 if (tabId === 'moments' && !isUnlockedForever()) return;
+                if (tabId === 'quiz' && !isUnlockedForever()) return;
                 
                 tabBtns.forEach(b => b.classList.remove('active'));
                 tabContents.forEach(c => c.classList.remove('active'));
@@ -503,7 +663,6 @@ else if (document.body.classList.contains('case-page')) {
             
             const isUnlocked = isUnlockedForever();
             
-            // Rose verliert Blätter NUR VOR der Freischaltung
             if (!isUnlocked) {
                 let petals = TOTAL_PETALS;
                 if (daysLeft <= 30) {
@@ -516,7 +675,6 @@ else if (document.body.classList.contains('case-page')) {
                 currentPetals = petals;
                 drawEnchantedRose(petals);
             } else {
-                // Nach Freischaltung: volle Rose, aber Animation nur einmal
                 if (currentPetals !== TOTAL_PETALS && !bloomingAnimation) {
                     startBloomingAnimation();
                 }
@@ -542,8 +700,7 @@ else if (document.body.classList.contains('case-page')) {
         
         if (roseWrapper) {
             roseWrapper.addEventListener('click', () => {
-                const isUnlocked = isUnlockedForever();
-                if (isUnlocked) {
+                if (isUnlockedForever()) {
                     if (secretDiv) secretDiv.classList.add('show');
                     if (typeof canvasConfetti !== 'undefined') {
                         canvasConfetti({ particleCount: 150, spread: 80, origin: { y: 0.5 }, colors: ['#e6b422', '#c73b4b', '#d4af37'] });
@@ -613,8 +770,7 @@ else if (document.body.classList.contains('case-page')) {
         
         if (celebrateBtn) {
             celebrateBtn.addEventListener('click', () => {
-                const isUnlocked = isUnlockedForever();
-                if (isUnlocked) {
+                if (isUnlockedForever()) {
                     showCongratsOverlay();
                     if (secretDiv) secretDiv.classList.add('show');
                     celebrateBtn.innerText = '🎂 ALLES GUTE, VIVIII! 🎂';
@@ -639,16 +795,6 @@ else if (document.body.classList.contains('case-page')) {
         window.addEventListener('focus', () => {
             updateRoseAndCountdown();
             updateLockedTabs();
-            if (isUnlockedForever()) {
-                const countdownEl = document.getElementById('countdownDays');
-                if (countdownEl && countdownEl.innerText !== '0' && isUnlockedForever()) {
-                    // Countdown bleibt normal, nur Freischaltung ist aktiv
-                }
-                const hintMsg = document.getElementById('roseHint');
-                if (hintMsg && hintMsg.innerText === '🌹 Berühre die verzauberte Rose 🌹' && isUnlockedForever()) {
-                    hintMsg.innerText = '🌹 Berühre die verzauberte Rose 🌹';
-                }
-            }
         });
     }
     
@@ -694,5 +840,11 @@ else if (document.body.classList.contains('case-page')) {
         document.getElementById('momentDescription').value = '';
         document.getElementById('momentImage').value = '';
         document.getElementById('imagePreview').innerHTML = '';
+    }
+    
+    // Quiz Next-Button Event
+    const nextQuizBtn = document.getElementById('nextQuestionBtn');
+    if (nextQuizBtn) {
+        nextQuizBtn.addEventListener('click', nextQuizQuestion);
     }
 }

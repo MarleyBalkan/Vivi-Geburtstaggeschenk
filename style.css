@@ -110,6 +110,8 @@ body.intro-page {
     transition: 0.2s;
     box-shadow: 0 4px 0 #4a1a1a;
     margin-top: 8px;
+    display: inline-block;
+    text-decoration: none;
 }
 
 .enter-btn:active {
@@ -194,7 +196,7 @@ body.case-page {
     font-weight: bold;
 }
 
-/* Tabs - Desktop: nebeneinander */
+/* Tabs */
 .case-tabs {
     display: flex;
     flex-wrap: wrap;
@@ -233,7 +235,6 @@ body.case-page {
         flex-direction: column;
         padding: 8px;
         gap: 8px;
-        background: #e7dbbc;
     }
     
     .tab-btn {
@@ -247,11 +248,6 @@ body.case-page {
         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
     
-    .tab-btn:hover {
-        background: #cfb27c;
-        transform: translateX(4px);
-    }
-    
     .tab-btn.active {
         background: #9e2a2a;
         color: #ffefcf;
@@ -259,15 +255,6 @@ body.case-page {
     }
 }
 
-/* Sehr kleine Handys */
-@media (max-width: 480px) {
-    .tab-btn {
-        padding: 10px 14px;
-        font-size: 0.85rem;
-    }
-}
-
-/* Tab-Inhalte bleiben gleich (nicht untereinander) */
 .tab-content {
     display: none;
     padding: 25px 28px;
@@ -279,43 +266,15 @@ body.case-page {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Profil - mit Blur-Effekt */
-#tab-profile .file-content {
-    transition: filter 0.5s ease;
-}
-
-/* Blur-Hinweis */
-.blur-hint {
-    text-align: center;
-    padding: 16px 20px;
-    margin: 20px auto;
-    background: rgba(158, 42, 42, 0.9);
-    border-radius: 60px;
-    color: #ffefcf;
-    font-size: 0.85rem;
-    max-width: 380px;
-    animation: pulse 2s infinite;
-    z-index: 10;
-    position: relative;
-}
-
-.blur-hint strong {
-    color: #ffd966;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 0.8; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.02); }
-}
-
+/* Profil */
 .file-content {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
 }
 
 .column {
@@ -324,35 +283,34 @@ body.case-page {
 }
 
 .section-title {
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
     border-bottom: 2px dashed #b87c4f;
-    margin-bottom: 14px;
-    padding-bottom: 5px;
+    margin-bottom: 18px;
+    padding-bottom: 6px;
     display: inline-block;
     color: #3b2a1f;
 }
 
 .case-detail {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .case-label {
     font-weight: bold;
     color: #8b3c1c;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .case-value {
     background: #fff5e6;
-    padding: 8px 10px;
-    margin-top: 5px;
+    padding: 8px 12px;
+    margin-top: 6px;
     border-left: 4px solid #c53030;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     color: #2c2c2c;
-    border-radius: 0 10px 10px 0;
 }
 
 .belle-accent {
@@ -366,26 +324,27 @@ body.case-page {
 /* Gesperrter Inhalt */
 .locked-content {
     text-align: center;
-    padding: 40px 16px;
+    padding: 60px 20px;
     background: rgba(0,0,0,0.05);
     border-radius: 24px;
     color: #5a4a2e;
 }
 
 .lock-icon {
-    font-size: 3rem;
-    margin-bottom: 16px;
+    font-size: 4rem;
+    margin-bottom: 20px;
     animation: pulse 2s infinite;
 }
 
-.locked-content h3 {
-    font-size: 1.2rem;
-    margin-bottom: 8px;
-    color: #9e2a2a;
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
 }
 
-.locked-content p {
-    font-size: 0.85rem;
+.locked-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #9e2a2a;
 }
 
 /* Briefe */
@@ -396,24 +355,23 @@ body.case-page {
 
 .letter-card {
     background: #fff5e6;
-    border-radius: 20px;
-    padding: 18px;
-    margin-bottom: 18px;
-    border-left: 5px solid #c53030;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 24px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-left: 6px solid #c53030;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .letter-date {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     color: #b87c4f;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-weight: bold;
 }
 
 .letter-content {
     color: #3b2a1f;
-    line-height: 1.5;
-    font-size: 0.85rem;
+    line-height: 1.6;
 }
 
 .future-letter {
@@ -430,35 +388,32 @@ body.case-page {
 .moments-intro {
     text-align: center;
     color: #5a4a2e;
-    margin-bottom: 24px;
+    margin-bottom: 30px;
     font-style: italic;
-    font-size: 0.85rem;
 }
 
 .moment-form {
     background: #e7dbbc;
-    border-radius: 24px;
-    padding: 18px;
-    margin-bottom: 28px;
+    border-radius: 28px;
+    padding: 25px;
+    margin-bottom: 35px;
 }
 
 .moment-form h4 {
     color: #9e2a2a;
-    margin-bottom: 12px;
-    font-size: 1rem;
+    margin-bottom: 15px;
 }
 
 .moment-form select,
 .moment-form input,
 .moment-form textarea {
     width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
     border: 1px solid #b87c4f;
-    border-radius: 14px;
+    border-radius: 16px;
     font-family: inherit;
     background: #fff5e6;
-    font-size: 0.85rem;
 }
 
 .save-moment-btn {
@@ -470,38 +425,36 @@ body.case-page {
     width: 100%;
     font-weight: bold;
     cursor: pointer;
-    font-size: 0.9rem;
 }
 
 .moments-gallery h4 {
     color: #3b2a1f;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     border-bottom: 2px dashed #b87c4f;
-    padding-bottom: 6px;
-    font-size: 1rem;
+    padding-bottom: 8px;
 }
 
 .moment-item {
     position: relative;
     background: #fff5e6;
-    border-radius: 18px;
-    padding: 14px;
-    margin-bottom: 14px;
-    border-left: 4px solid #c53030;
+    border-radius: 20px;
+    padding: 18px;
+    margin-bottom: 15px;
+    border-left: 5px solid #c53030;
     transition: transform 0.2s;
 }
 
 .moment-item:hover {
-    transform: translateX(4px);
+    transform: translateX(5px);
 }
 
 .moment-series-badge {
     display: inline-block;
-    padding: 4px 10px;
+    padding: 4px 12px;
     border-radius: 20px;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .badge-criminal {
@@ -525,45 +478,43 @@ body.case-page {
 }
 
 .moment-title {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: bold;
     color: #3b2a1f;
-    margin-bottom: 6px;
-    padding-right: 55px;
+    margin-bottom: 8px;
 }
 
 .moment-description {
     color: #5a4a2e;
-    line-height: 1.4;
-    margin-bottom: 8px;
-    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
 }
 
 .moment-timestamp {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     color: #bc9a6c;
     font-style: italic;
 }
 
 .moment-image {
     max-width: 100%;
-    max-height: 160px;
-    border-radius: 14px;
-    margin: 8px 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    max-height: 200px;
+    border-radius: 16px;
+    margin: 10px 0;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
 
 .delete-moment {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 15px;
+    right: 15px;
     background: #9e2a2a;
     color: white;
     border: none;
-    padding: 4px 10px;
+    padding: 4px 12px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
 }
 
 .delete-moment:hover {
@@ -571,7 +522,7 @@ body.case-page {
 }
 
 .image-upload-area {
-    margin: 12px 0;
+    margin: 15px 0;
 }
 
 .image-upload-label {
@@ -583,7 +534,6 @@ body.case-page {
     text-align: center;
     cursor: pointer;
     margin-bottom: 10px;
-    font-size: 0.85rem;
 }
 
 #momentImage {
@@ -592,41 +542,39 @@ body.case-page {
 
 .image-preview {
     text-align: center;
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
 .preview-thumb {
-    max-width: 120px;
-    max-height: 120px;
-    border-radius: 14px;
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 16px;
 }
 
 .remove-image {
     display: block;
-    margin: 6px auto 0;
+    margin: 8px auto 0;
     background: #9e2a2a;
     color: white;
     border: none;
-    padding: 4px 10px;
+    padding: 4px 12px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 0.7rem;
 }
 
 .empty-moments {
     text-align: center;
     color: #bc9a6c;
-    padding: 30px;
+    padding: 40px;
     font-style: italic;
-    font-size: 0.85rem;
 }
 
 /* Backup */
 .backup-simple {
-    margin-top: 24px;
-    padding: 16px;
+    margin-top: 30px;
+    padding: 20px;
     background: linear-gradient(135deg, #e7dbbc, #fef5e0);
-    border-radius: 24px;
+    border-radius: 28px;
     text-align: center;
     border: 2px solid #ffd966;
 }
@@ -635,14 +583,14 @@ body.case-page {
     background: #2c7a6e;
     border: none;
     color: white;
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: bold;
-    padding: 10px 18px;
-    border-radius: 40px;
+    padding: 12px 24px;
+    border-radius: 50px;
     cursor: pointer;
     font-family: monospace;
     transition: 0.2s;
-    margin: 4px;
+    margin: 5px;
 }
 
 .backup-simple-btn.import {
@@ -654,32 +602,32 @@ body.case-page {
 }
 
 .backup-hint {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     color: #5a4a2e;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 .backup-status {
-    margin-top: 8px;
-    font-size: 0.75rem;
+    margin-top: 10px;
+    font-size: 0.8rem;
     font-weight: bold;
 }
 
 .album-hint {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     color: #bc9a6c;
-    margin-top: 16px;
+    margin-top: 20px;
     text-align: center;
 }
 
 /* Rose */
 .rose-sanctum {
     background: linear-gradient(145deg, #0a0a0f 0%, #1a1a2a 100%);
-    margin: 0 16px 20px 16px;
-    border-radius: 60px 60px 40px 40px;
-    padding: 20px;
+    margin: 0 28px 28px 28px;
+    border-radius: 80px 80px 60px 60px;
+    padding: 25px;
     text-align: center;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.5), 0 15px 30px rgba(0,0,0,0.4);
     border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
@@ -687,34 +635,35 @@ body.case-page {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 40px;
     flex-wrap: wrap;
 }
 
 .glass-dome {
     position: relative;
-    width: 140px;
-    height: 140px;
+    width: 220px;
+    height: 220px;
     background: radial-gradient(ellipse at 30% 35%, rgba(255,255,245,0.15) 0%, rgba(200,180,120,0.05) 60%);
     border-radius: 50%;
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(255,215,0,0.2);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.4), inset 0 0 40px rgba(255,215,0,0.2);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     backdrop-filter: blur(2px);
     border: 1px solid rgba(212, 175, 55, 0.6);
 }
 
 .glass-dome:hover {
     transform: scale(1.02);
+    box-shadow: 0 0 45px rgba(212, 175, 55, 0.7);
 }
 
 .dome-reflection {
     position: absolute;
     top: 10%;
     left: 15%;
-    width: 30%;
-    height: 20%;
-    background: radial-gradient(circle, rgba(255,255,245,0.5) 0%, rgba(255,255,245,0) 80%);
+    width: 35%;
+    height: 25%;
+    background: radial-gradient(circle, rgba(255,255,245,0.6) 0%, rgba(255,255,245,0) 80%);
     border-radius: 50%;
     pointer-events: none;
     z-index: 2;
@@ -722,20 +671,21 @@ body.case-page {
 
 .magic-glow {
     position: absolute;
-    bottom: -8px;
+    bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 70%;
-    height: 25%;
-    background: radial-gradient(ellipse, rgba(212, 175, 55, 0.4) 0%, transparent 70%);
-    filter: blur(8px);
+    width: 80%;
+    height: 30%;
+    background: radial-gradient(ellipse, rgba(212, 175, 55, 0.5) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(10px);
     pointer-events: none;
     animation: pulseGlow 3s ease-in-out infinite;
 }
 
 @keyframes pulseGlow {
     0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
-    50% { opacity: 0.7; transform: translateX(-50%) scale(1.05); }
+    50% { opacity: 0.8; transform: translateX(-50%) scale(1.1); }
 }
 
 canvas {
@@ -745,43 +695,41 @@ canvas {
     transform: translate(-50%, -50%);
     display: block;
     z-index: 3;
-    width: 120px;
-    height: 120px;
 }
 
 .countdown-box {
     background: rgba(10, 10, 20, 0.8);
     backdrop-filter: blur(5px);
-    padding: 12px 18px;
-    border-radius: 50px;
+    padding: 18px 28px;
+    border-radius: 60px;
     font-family: monospace;
     border: 1px solid rgba(212, 175, 55, 0.4);
 }
 
 .countdown-number {
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     font-weight: bold;
     color: #f5cb8b;
-    letter-spacing: 3px;
-    text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+    letter-spacing: 4px;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
 .countdown-label {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     color: #e6d5a8;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
 .rose-message {
-    margin-top: 8px;
+    margin-top: 12px;
     font-style: italic;
     color: #e6c87a;
-    font-size: 0.7rem;
+    font-size: 0.85rem;
 }
 
 .action-area {
-    padding: 0 16px 20px 16px;
+    padding: 0 28px 35px 28px;
     display: flex;
     justify-content: center;
 }
@@ -792,23 +740,18 @@ canvas {
     color: #ffefcf;
     font-family: monospace;
     font-weight: bold;
-    font-size: 0.9rem;
-    padding: 10px 20px;
-    border-radius: 50px;
+    font-size: 1.3rem;
+    padding: 12px 32px;
+    border-radius: 60px;
     cursor: pointer;
     transition: 0.2s;
-    box-shadow: 0 4px 0 #4a1a1a;
-}
-
-.celebrate-btn:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 #4a1a1a;
+    box-shadow: 0 5px 0 #4a1a1a;
 }
 
 .secret-message {
     text-align: center;
-    padding: 14px 20px;
-    font-size: 0.85rem;
+    padding: 15px 28px 25px;
+    font-size: 1rem;
     color: #bc9a6c;
     display: none;
     border-top: 1px dashed #cfb27c;
@@ -817,7 +760,7 @@ canvas {
 
 .secret-message.show {
     display: block;
-    animation: fadeGlow 0.5s ease;
+    animation: fadeGlow 0.6s ease;
 }
 
 @keyframes fadeGlow {
@@ -838,18 +781,18 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 16px;
+    padding: 20px;
     box-sizing: border-box;
 }
 
 .overlay-content {
     position: relative;
     background: #fef5e0;
-    border-radius: 32px;
-    padding: 20px 18px 18px 18px;
-    max-width: 700px;
+    border-radius: 48px;
+    padding: 30px 25px 25px 25px;
+    max-width: 800px;
     width: 100%;
-    max-height: 85vh;
+    max-height: 90vh;
     overflow-y: auto;
     text-align: center;
     border: 2px solid #ffd966;
@@ -862,64 +805,62 @@ canvas {
     float: right;
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     cursor: pointer;
     color: #9e2a2a;
     transition: 0.2s;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     z-index: 10;
-    padding: 4px;
 }
 
 .close-overlay-x:hover {
     color: #c53030;
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .overlay-content h2 {
     color: #9e2a2a;
-    margin-bottom: 16px;
-    font-size: 1.2rem;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
     clear: both;
-    padding-top: 8px;
+    padding-top: 10px;
 }
 
 .congrats-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 14px;
-    margin: 16px 0 20px 0;
-    max-height: 55vh;
+    gap: 20px;
+    margin: 20px 0 25px 0;
+    max-height: 50vh;
     overflow-y: auto;
-    padding: 4px;
+    padding: 5px;
 }
 
 .congrats-card {
     background: #fff5e6;
-    border-radius: 18px;
-    padding: 12px;
-    width: 180px;
+    border-radius: 20px;
+    padding: 15px;
+    width: 200px;
     text-align: center;
     border-left: 4px solid #c53030;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .congrats-avatar {
-    font-size: 2rem;
-    margin-bottom: 6px;
+    font-size: 2.5rem;
+    margin-bottom: 8px;
 }
 
 .congrats-name {
     font-weight: bold;
     color: #2c7a6e;
-    margin-bottom: 6px;
-    font-size: 0.9rem;
+    margin-bottom: 8px;
 }
 
 .congrats-message {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: #3b2a1f;
 }
 
@@ -927,21 +868,21 @@ canvas {
     background: #9e2a2a;
     border: none;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border-radius: 40px;
     cursor: pointer;
-    margin-top: 8px;
-    margin-bottom: 4px;
-    font-size: 0.9rem;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 1rem;
     font-weight: bold;
     width: 100%;
-    max-width: 220px;
+    max-width: 250px;
 }
 
 footer {
-    font-size: 0.55rem;
+    font-size: 0.65rem;
     text-align: center;
-    padding: 10px;
+    padding: 12px;
     background: #e7dbbc;
     color: #5a4a2e;
     border-top: 1px solid #cfb27c;
@@ -952,8 +893,135 @@ footer {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ========= MOBILE OPTIMIERUNG ========= */
-@media (max-width: 550px) {
+/* ========= QUIZ ========= */
+.quiz-container {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.quiz-title {
+    color: #9e2a2a;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.quiz-subtitle {
+    color: #5a4a2e;
+    margin-bottom: 25px;
+    font-style: italic;
+}
+
+.quiz-progress {
+    background: #e7dbbc;
+    padding: 8px 16px;
+    border-radius: 40px;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #5a4a2e;
+}
+
+.quiz-question {
+    background: #fff5e6;
+    padding: 20px;
+    border-radius: 24px;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    border-left: 5px solid #9e2a2a;
+    text-align: left;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.quiz-option {
+    background: #e7dbbc;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: monospace;
+    font-size: 0.9rem;
+    text-align: left;
+    transition: all 0.2s;
+    color: #3b2a1f;
+}
+
+.quiz-option:hover {
+    background: #cfb27c;
+    transform: translateX(5px);
+}
+
+.quiz-option.correct {
+    background: #2c7a6e;
+    color: white;
+}
+
+.quiz-option.wrong {
+    background: #c53030;
+    color: white;
+}
+
+.quiz-feedback {
+    margin: 15px 0;
+    font-style: italic;
+    color: #9e2a2a;
+    font-weight: bold;
+}
+
+.quiz-next {
+    background: #9e2a2a;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: monospace;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.quiz-next:hover {
+    background: #c53030;
+    transform: scale(1.02);
+}
+
+.quiz-result {
+    margin-top: 25px;
+    padding: 20px;
+    background: #fff5e6;
+    border-radius: 24px;
+    font-size: 1.1rem;
+    border-left: 5px solid #ffd966;
+}
+
+/* Blur-Hinweis */
+.blur-hint {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    background: rgba(158, 42, 42, 0.9);
+    border-radius: 60px;
+    color: #ffefcf;
+    font-size: 0.9rem;
+    max-width: 400px;
+    animation: pulse 2s infinite;
+    z-index: 10;
+    position: relative;
+}
+
+.blur-hint strong {
+    color: #ffd966;
+}
+
+/* Mobile Optimierungen */
+@media (max-width: 700px) {
     body {
         padding: 8px;
     }
@@ -963,145 +1031,36 @@ footer {
         padding: 12px 8px;
     }
     
-    .character-avatar {
-        font-size: 2rem;
-    }
-    
-    .character-name {
-        font-size: 0.85rem;
-    }
-    
-    .message-area {
-        padding: 12px 14px;
-        font-size: 0.8rem;
-    }
-    
-    .enter-btn {
-        font-size: 1rem;
-        padding: 10px 20px;
-    }
-    
-    .tab-btn {
-        padding: 10px 6px;
-        font-size: 0.7rem;
-        min-width: 75px;
-    }
-    
     .tab-content {
-        padding: 14px 12px;
-    }
-    
-    .section-title {
-        font-size: 0.9rem;
-    }
-    
-    .case-value {
-        font-size: 0.8rem;
-        padding: 6px 8px;
+        padding: 16px;
     }
     
     .glass-dome {
+        width: 140px;
+        height: 140px;
+    }
+    
+    canvas {
         width: 120px;
         height: 120px;
     }
     
-    canvas {
-        width: 100px;
-        height: 100px;
-    }
-    
     .countdown-number {
-        font-size: 1.5rem;
-    }
-    
-    .countdown-label {
-        font-size: 0.55rem;
-    }
-    
-    .rose-message {
-        font-size: 0.65rem;
-    }
-    
-    .celebrate-btn {
-        font-size: 0.8rem;
-        padding: 8px 16px;
-    }
-    
-    .moment-form {
-        padding: 14px;
-    }
-    
-    .moment-title {
-        font-size: 0.9rem;
-        padding-right: 45px;
-    }
-    
-    .moment-description {
-        font-size: 0.75rem;
-    }
-    
-    .delete-moment {
-        top: 8px;
-        right: 8px;
-        padding: 3px 8px;
-        font-size: 0.6rem;
-    }
-    
-    .congrats-card {
-        width: 100%;
-        max-width: 260px;
-    }
-    
-    .overlay-content {
-        padding: 16px 14px 14px 14px;
-        max-height: 90vh;
-    }
-    
-    .overlay-content h2 {
-        font-size: 1rem;
-    }
-    
-    .close-overlay-x {
-        font-size: 1.3rem;
-    }
-}
-
-@media (max-width: 380px) {
-    .tab-btn {
-        min-width: 70px;
-        font-size: 0.65rem;
-        padding: 8px 4px;
-    }
-    
-    .character-card {
-        width: 110px;
-        padding: 10px 6px;
-    }
-    
-    .character-avatar {
         font-size: 1.8rem;
     }
     
-    .character-name {
-        font-size: 0.75rem;
+    .celebrate-btn {
+        font-size: 1rem;
+        padding: 10px 20px;
     }
     
-    .glass-dome {
-        width: 100px;
-        height: 100px;
+    .quiz-question {
+        font-size: 0.95rem;
+        padding: 16px;
     }
     
-    canvas {
-        width: 85px;
-        height: 85px;
-    }
-    
-    .countdown-number {
-        font-size: 1.2rem;
-    }
-    
-    .backup-simple-btn {
-        padding: 8px 14px;
-        font-size: 0.75rem;
+    .quiz-option {
+        padding: 12px 16px;
+        font-size: 0.85rem;
     }
 }
