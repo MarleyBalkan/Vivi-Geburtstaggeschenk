@@ -2,6 +2,7 @@
 if (document.body.classList.contains('intro-page')) {
     const characters = document.querySelectorAll('.character-card');
     const messageArea = document.getElementById('messageArea');
+    const enterLink = document.getElementById('enterBtn');
     
     function showMessage(name, message) {
         messageArea.innerHTML = `<strong>${name}</strong><br><br>${message}`;
@@ -17,33 +18,44 @@ if (document.body.classList.contains('intro-page')) {
             if (hiddenMsg) {
                 showMessage(name, hiddenMsg.innerText);
             }
-            if (typeof canvasConfetti === 'function') {
+            if (typeof canvasConfetti !== 'undefined') {
                 canvasConfetti({ particleCount: 30, spread: 40, origin: { y: 0.7 }, colors: ['#c53030', '#e6b422'] });
             }
         });
     });
     
-    // Der Link "Zur Fallakte" ist jetzt ein <a>-Tag in index.html – kein JavaScript nötig!
-    // Konfetti-Effekt für den Link (optional)
-    const enterLink = document.getElementById('enterBtn');
     if (enterLink) {
         enterLink.addEventListener('click', (e) => {
-            canvasConfetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
-            // Kein e.preventDefault() – der Link funktioniert normal
+            if (typeof canvasConfetti !== 'undefined') {
+                canvasConfetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+            }
         });
     }
 }
-
-// ========= REST DEINER main.js (Hauptseite) bleibt unverändert =========
 
 // ========= 2. HAUPTSEITE =========
 else if (document.body.classList.contains('case-page')) {
     
     // ---------- DATUMSFUNKTIONEN ----------
     function isBirthdayToday() {
-        return true;
+        const today = new Date();
+        return today.getDate() === 9 && today.getMonth() === 8;
     }
     
+    // Prüft, ob der Geburtstag JEMALS freigeschaltet wurde
+    function isUnlockedForever() {
+        const unlocked = localStorage.getItem('viviana_birthday_unlocked');
+        if (unlocked === 'true') return true;
+        
+        // Wenn heute Geburtstag ist, wird für immer freigeschaltet
+        if (isBirthdayToday()) {
+            localStorage.setItem('viviana_birthday_unlocked', 'true');
+            return true;
+        }
+        return false;
+    }
+    
+    // Zählt bis zum NÄCHSTEN 9. September (auch wenn schon freigeschaltet)
     function getDaysUntilBirthday() {
         const today = new Date();
         let birthday = new Date(today.getFullYear(), 8, 9);
@@ -142,7 +154,7 @@ else if (document.body.classList.contains('case-page')) {
                 const id = parseInt(btn.getAttribute('data-id'));
                 if (confirm('Möchtest du diesen Moment wirklich löschen?')) {
                     deleteMoment(id);
-                    if (typeof canvasConfetti === 'function') {
+                    if (typeof canvasConfetti !== 'undefined') {
                         canvasConfetti({ particleCount: 30, spread: 30, colors: ['#c53030'] });
                     }
                 }
@@ -157,7 +169,6 @@ else if (document.body.classList.contains('case-page')) {
         return div.innerHTML;
     }
     
-    // Bild-Vorschau
     function setupImagePreview() {
         const imageInput = document.getElementById('momentImage');
         const previewDiv = document.getElementById('imagePreview');
@@ -184,7 +195,6 @@ else if (document.body.classList.contains('case-page')) {
         }
     }
     
-    // Backup-Funktionen
     function exportBackup() {
         const data = JSON.stringify(moments, null, 2);
         const blob = new Blob([data], { type: 'application/json' });
@@ -219,7 +229,7 @@ else if (document.body.classList.contains('case-page')) {
                         statusDiv.style.color = '#2c7a6e';
                         setTimeout(() => { statusDiv.innerHTML = ''; }, 3000);
                     }
-                    if (typeof canvasConfetti === 'function') {
+                    if (typeof canvasConfetti !== 'undefined') {
                         canvasConfetti({ particleCount: 80, spread: 60, colors: ['#e6b422', '#2c7a6e'] });
                     }
                 } else {
@@ -282,13 +292,13 @@ else if (document.body.classList.contains('case-page')) {
         });
     }
     
-    // ---------- BLUR-EFFEKT FÜR PROFIL-TAB ----------
+    // ---------- BLUR-EFFEKT ----------
     function updateBlurEffect() {
-        const isBirthday = isBirthdayToday();
+        const isUnlocked = isUnlockedForever();
         const profileContent = document.querySelector('#tab-profile .file-content');
         
         if (profileContent) {
-            if (!isBirthday) {
+            if (!isUnlocked) {
                 profileContent.style.filter = 'blur(6px)';
                 profileContent.style.transition = 'filter 0.5s ease';
                 if (!document.getElementById('blurHint')) {
@@ -308,12 +318,12 @@ else if (document.body.classList.contains('case-page')) {
     
     // ---------- SPERR-LOGIK ----------
     function updateLockedTabs() {
-        const isBirthday = isBirthdayToday();
+        const isUnlocked = isUnlockedForever();
         const lettersTab = document.getElementById('lettersTabBtn');
         const momentsTab = document.getElementById('momentsTabBtn');
         
-        if (lettersTab) lettersTab.innerHTML = isBirthday ? '💌 Briefe & Erinnerungen' : '💌 Briefe & Erinnerungen 🔒';
-        if (momentsTab) momentsTab.innerHTML = isBirthday ? '📸 Momente' : '📸 Momente 🔒';
+        if (lettersTab) lettersTab.innerHTML = isUnlocked ? '💌 Briefe & Erinnerungen' : '💌 Briefe & Erinnerungen 🔒';
+        if (momentsTab) momentsTab.innerHTML = isUnlocked ? '📸 Momente' : '📸 Momente 🔒';
         
         const lettersLocked = document.getElementById('lettersLocked');
         const lettersUnlocked = document.getElementById('lettersUnlocked');
@@ -321,7 +331,7 @@ else if (document.body.classList.contains('case-page')) {
         const momentsUnlocked = document.getElementById('momentsUnlocked');
         
         if (lettersLocked && lettersUnlocked) {
-            if (isBirthday) {
+            if (isUnlocked) {
                 lettersLocked.style.display = 'none';
                 lettersUnlocked.style.display = 'block';
                 renderLetters();
@@ -331,7 +341,7 @@ else if (document.body.classList.contains('case-page')) {
             }
         }
         if (momentsLocked && momentsUnlocked) {
-            if (isBirthday) {
+            if (isUnlocked) {
                 momentsLocked.style.display = 'none';
                 momentsUnlocked.style.display = 'block';
                 loadMoments();
@@ -356,8 +366,8 @@ else if (document.body.classList.contains('case-page')) {
                 const tabId = btn.getAttribute('data-tab');
                 const targetContent = document.getElementById(`tab-${tabId}`);
                 
-                if (tabId === 'letters' && !isBirthdayToday()) return;
-                if (tabId === 'moments' && !isBirthdayToday()) return;
+                if (tabId === 'letters' && !isUnlockedForever()) return;
+                if (tabId === 'moments' && !isUnlockedForever()) return;
                 
                 tabBtns.forEach(b => b.classList.remove('active'));
                 tabContents.forEach(c => c.classList.remove('active'));
@@ -491,12 +501,10 @@ else if (document.body.classList.contains('case-page')) {
             const countdownEl = document.getElementById('countdownDays');
             if (countdownEl) countdownEl.innerText = daysLeft;
             
-            if (isBirthdayToday()) {
-                if (currentPetals !== TOTAL_PETALS && !bloomingAnimation) {
-                    startBloomingAnimation();
-                }
-                currentPetals = TOTAL_PETALS;
-            } else {
+            const isUnlocked = isUnlockedForever();
+            
+            // Rose verliert Blätter NUR VOR der Freischaltung
+            if (!isUnlocked) {
                 let petals = TOTAL_PETALS;
                 if (daysLeft <= 30) {
                     petals = Math.max(2, Math.floor(TOTAL_PETALS * (1 - (30 - daysLeft) / 35)));
@@ -507,6 +515,12 @@ else if (document.body.classList.contains('case-page')) {
                 }
                 currentPetals = petals;
                 drawEnchantedRose(petals);
+            } else {
+                // Nach Freischaltung: volle Rose, aber Animation nur einmal
+                if (currentPetals !== TOTAL_PETALS && !bloomingAnimation) {
+                    startBloomingAnimation();
+                }
+                currentPetals = TOTAL_PETALS;
             }
         }
         
@@ -528,9 +542,10 @@ else if (document.body.classList.contains('case-page')) {
         
         if (roseWrapper) {
             roseWrapper.addEventListener('click', () => {
-                if (isBirthdayToday()) {
+                const isUnlocked = isUnlockedForever();
+                if (isUnlocked) {
                     if (secretDiv) secretDiv.classList.add('show');
-                    if (typeof canvasConfetti === 'function') {
+                    if (typeof canvasConfetti !== 'undefined') {
                         canvasConfetti({ particleCount: 150, spread: 80, origin: { y: 0.5 }, colors: ['#e6b422', '#c73b4b', '#d4af37'] });
                     }
                     if (roseHint) roseHint.innerHTML = '🌹✨ Die Verzauberung ist gebrochen! Die Rose erblüht für dich ✨🌹';
@@ -573,7 +588,7 @@ else if (document.body.classList.contains('case-page')) {
                 congratsGrid.appendChild(card);
             });
             if (overlay) overlay.style.display = 'flex';
-            if (typeof canvasConfetti === 'function') {
+            if (typeof canvasConfetti !== 'undefined') {
                 canvasConfetti({ particleCount: 300, spread: 120, origin: { y: 0.6 }, colors: ['#c53030', '#e6b422', '#2c7a6e', '#d4af37'] });
             }
         }
@@ -598,7 +613,8 @@ else if (document.body.classList.contains('case-page')) {
         
         if (celebrateBtn) {
             celebrateBtn.addEventListener('click', () => {
-                if (isBirthdayToday()) {
+                const isUnlocked = isUnlockedForever();
+                if (isUnlocked) {
                     showCongratsOverlay();
                     if (secretDiv) secretDiv.classList.add('show');
                     celebrateBtn.innerText = '🎂 ALLES GUTE, VIVIII! 🎂';
@@ -611,24 +627,27 @@ else if (document.body.classList.contains('case-page')) {
             });
         }
         
-        if (!isBirthdayToday() && secretDiv && !secretDiv.classList.contains('show')) {
+        const isUnlocked = isUnlockedForever();
+        if (!isUnlocked && secretDiv && !secretDiv.classList.contains('show')) {
             secretDiv.innerHTML = '🔒 <strong>FALL GESPERRT</strong> 🔒<br><br>Die Enthüllung wird am <strong>9. September</strong> freigeschaltet.<br>Kehre an deinem Geburtstag zurück! 🥀✨';
             secretDiv.style.opacity = '0.7';
+        } else if (isUnlocked && secretDiv && secretDiv.innerHTML.includes('GESPERRT')) {
+            secretDiv.innerHTML = '💛 „Das Märchen, das du suchst, bist du selbst. Special Agent Belle Viviana, du hast das Biest besiegt und den ganzen Grey Sloan OP-Saal zum Jubeln gebracht. Happy Birthday!“ 💛<br>🕵️‍♀️🌹🏥';
+            secretDiv.style.opacity = '1';
         }
         
         window.addEventListener('focus', () => {
             updateRoseAndCountdown();
             updateLockedTabs();
-            if (isBirthdayToday()) {
-                if (secretDiv && secretDiv.innerHTML.includes('GESPERRT')) {
-                    secretDiv.innerHTML = '💛 „Das Märchen, das du suchst, bist du selbst. Special Agent Belle Viviana, du hast das Biest besiegt und den ganzen Grey Sloan OP-Saal zum Jubeln gebracht. Happy Birthday!“ 💛<br>🕵️‍♀️🌹🏥';
-                    secretDiv.style.opacity = '1';
-                }
+            if (isUnlockedForever()) {
                 const countdownEl = document.getElementById('countdownDays');
-                if (countdownEl) countdownEl.innerText = '0';
+                if (countdownEl && countdownEl.innerText !== '0' && isUnlockedForever()) {
+                    // Countdown bleibt normal, nur Freischaltung ist aktiv
+                }
                 const hintMsg = document.getElementById('roseHint');
-                if (hintMsg && hintMsg.innerText === '🌹 Berühre die verzauberte Rose 🌹')
-                    hintMsg.innerText = '🎂 HEUTE IST DEIN GEBURTSTAG! Berühre die Rose 🎂';
+                if (hintMsg && hintMsg.innerText === '🌹 Berühre die verzauberte Rose 🌹' && isUnlockedForever()) {
+                    hintMsg.innerText = '🌹 Berühre die verzauberte Rose 🌹';
+                }
             }
         });
     }
@@ -664,7 +683,7 @@ else if (document.body.classList.contains('case-page')) {
                 clearMomentForm();
             }
             
-            if (typeof canvasConfetti === 'function') {
+            if (typeof canvasConfetti !== 'undefined') {
                 canvasConfetti({ particleCount: 50, spread: 40, colors: ['#e6b422', '#c53030'] });
             }
         });
