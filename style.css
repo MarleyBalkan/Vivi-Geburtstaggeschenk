@@ -227,7 +227,7 @@ body.case-page {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Profil-Inhalt */
+/* Profil */
 .file-content {
     display: flex;
     flex-wrap: wrap;
@@ -304,180 +304,280 @@ body.case-page {
     color: #9e2a2a;
 }
 
-.locked-content p {
-    font-size: 1rem;
+/* Briefe */
+.letters-container {
+    max-width: 700px;
+    margin: 0 auto;
 }
 
-/* Album */
-.album-container {
+.letter-card {
+    background: #fff5e6;
+    border-radius: 24px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-left: 6px solid #c53030;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.letter-date {
+    font-size: 0.8rem;
+    color: #b87c4f;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.letter-content {
+    color: #3b2a1f;
+    line-height: 1.6;
+}
+
+.future-letter {
+    border-left-color: #b87c4f;
+    opacity: 0.7;
+}
+
+/* Momente */
+.moments-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.moments-intro {
     text-align: center;
+    color: #5a4a2e;
+    margin-bottom: 30px;
+    font-style: italic;
 }
 
-.album-title {
+.moment-form {
+    background: #e7dbbc;
+    border-radius: 28px;
+    padding: 25px;
+    margin-bottom: 35px;
+}
+
+.moment-form h4 {
+    color: #9e2a2a;
+    margin-bottom: 15px;
+}
+
+.moment-form select,
+.moment-form input,
+.moment-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #b87c4f;
+    border-radius: 16px;
+    font-family: inherit;
+    background: #fff5e6;
+}
+
+.save-moment-btn {
+    background: #9e2a2a;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 40px;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.moments-gallery h4 {
     color: #3b2a1f;
     margin-bottom: 20px;
+    border-bottom: 2px dashed #b87c4f;
+    padding-bottom: 8px;
 }
 
-.photo-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    margin-bottom: 20px;
-}
-
-.photo-card {
-    width: 200px;
-    text-align: center;
-}
-
-.photo-placeholder {
-    width: 100%;
-    aspect-ratio: 1;
+.moment-item {
+    position: relative;
+    background: #fff5e6;
     border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    transition: transform 0.3s;
+    padding: 18px;
+    margin-bottom: 15px;
+    border-left: 5px solid #c53030;
+    transition: transform 0.2s;
 }
 
-.photo-placeholder:hover {
-    transform: scale(1.05);
+.moment-item:hover {
+    transform: translateX(5px);
 }
 
-.photo-caption {
+.moment-series-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.badge-criminal {
+    background: #0a1f3e;
+    color: #ffd966;
+}
+
+.badge-greys {
+    background: #2c7a6e;
+    color: white;
+}
+
+.badge-life {
+    background: #e6b83e;
+    color: #3b2a1f;
+}
+
+.badge-both {
+    background: #9e2a2a;
+    color: #ffd966;
+}
+
+.moment-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #3b2a1f;
+    margin-bottom: 8px;
+}
+
+.moment-description {
+    color: #5a4a2e;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.moment-timestamp {
+    font-size: 0.7rem;
+    color: #bc9a6c;
+    font-style: italic;
+}
+
+.moment-image {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 16px;
+    margin: 10px 0;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.delete-moment {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #9e2a2a;
+    color: white;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+
+.delete-moment:hover {
+    background: #c53030;
+}
+
+.image-upload-area {
+    margin: 15px 0;
+}
+
+.image-upload-label {
+    display: block;
+    background: #2c7a6e;
+    color: white;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+#momentImage {
+    display: none;
+}
+
+.image-preview {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.preview-thumb {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 16px;
+}
+
+.remove-image {
+    display: block;
+    margin: 8px auto 0;
+    background: #9e2a2a;
+    color: white;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.empty-moments {
+    text-align: center;
+    color: #bc9a6c;
+    padding: 40px;
+    font-style: italic;
+}
+
+/* Backup */
+.backup-simple {
+    margin-top: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #e7dbbc, #fef5e0);
+    border-radius: 28px;
+    text-align: center;
+    border: 2px solid #ffd966;
+}
+
+.backup-simple-btn {
+    background: #2c7a6e;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: monospace;
+    transition: 0.2s;
+    margin: 5px;
+}
+
+.backup-simple-btn.import {
+    background: #9e2a2a;
+}
+
+.backup-simple-btn:hover {
+    transform: scale(1.02);
+}
+
+.backup-hint {
+    font-size: 0.7rem;
+    color: #5a4a2e;
+    margin-top: 12px;
+}
+
+.backup-status {
     margin-top: 10px;
     font-size: 0.8rem;
-    color: #5a4a2e;
+    font-weight: bold;
 }
 
 .album-hint {
     font-size: 0.7rem;
     color: #bc9a6c;
     margin-top: 20px;
-}
-
-/* Quiz */
-.quiz-container {
-    max-width: 600px;
-    margin: 0 auto;
     text-align: center;
 }
 
-.quiz-title {
-    color: #9e2a2a;
-    margin-bottom: 10px;
-}
-
-.quiz-subtitle {
-    color: #5a4a2e;
-    margin-bottom: 30px;
-}
-
-.quiz-question {
-    background: #fff5e6;
-    padding: 20px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    font-size: 1.1rem;
-}
-
-.quiz-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.quiz-option {
-    background: #2c7a6e;
-    border: none;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 40px;
-    cursor: pointer;
-    font-family: monospace;
-    transition: 0.2s;
-}
-
-.quiz-option:hover {
-    background: #3e9a8a;
-    transform: scale(1.02);
-}
-
-.quiz-option.correct {
-    background: #2ecc71;
-}
-
-.quiz-option.wrong {
-    background: #e74c3c;
-}
-
-.quiz-feedback {
-    margin-bottom: 20px;
-    font-style: italic;
-    color: #9e2a2a;
-}
-
-.quiz-next {
-    background: #9e2a2a;
-    border: none;
-    color: white;
-    padding: 10px 30px;
-    border-radius: 40px;
-    cursor: pointer;
-    font-family: monospace;
-}
-
-.quiz-result {
-    margin-top: 20px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #2c7a6e;
-}
-
-/* Teilen */
-.share-container {
-    text-align: center;
-    padding: 20px;
-}
-
-.share-btn {
-    background: #2c7a6e;
-    border: none;
-    color: white;
-    padding: 12px 28px;
-    border-radius: 40px;
-    cursor: pointer;
-    font-family: monospace;
-    margin: 10px;
-    font-size: 1rem;
-}
-
-.share-btn.whatsapp {
-    background: #25D366;
-}
-
-.share-btn:hover {
-    transform: scale(1.02);
-}
-
-.share-status {
-    margin-top: 15px;
-    color: #9e2a2a;
-    font-style: italic;
-}
-
-.share-hint {
-    margin-top: 20px;
-    font-size: 0.7rem;
-    color: #bc9a6c;
-}
-
-/* Rose Bereich */
+/* Rose */
 .rose-sanctum {
     background: linear-gradient(145deg, #0a0a0f 0%, #1a1a2a 100%);
     margin: 0 28px 28px 28px;
@@ -641,6 +741,7 @@ canvas {
 }
 
 .overlay-content {
+    position: relative;
     background: #fef5e0;
     border-radius: 48px;
     padding: 30px;
@@ -648,6 +749,26 @@ canvas {
     width: 90%;
     text-align: center;
     border: 2px solid #ffd966;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close-overlay-x {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #9e2a2a;
+    transition: 0.2s;
+    font-weight: bold;
+}
+
+.close-overlay-x:hover {
+    color: #c53030;
+    transform: scale(1.1);
 }
 
 .overlay-content h2 {
@@ -670,6 +791,7 @@ canvas {
     width: 200px;
     text-align: center;
     border-left: 4px solid #c53030;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .congrats-avatar {
@@ -695,6 +817,7 @@ canvas {
     padding: 10px 25px;
     border-radius: 40px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 footer {
@@ -713,13 +836,6 @@ footer {
 
 /* Responsive */
 @media (max-width: 700px) {
-    .case-tabs {
-        padding: 0 10px;
-    }
-    .tab-btn {
-        padding: 10px 12px;
-        font-size: 0.8rem;
-    }
     .file-content {
         flex-direction: column;
     }
@@ -734,560 +850,26 @@ footer {
         width: 160px;
         height: 160px;
     }
-    .photo-card {
-        width: 150px;
+    .case-tabs {
+        padding: 0 10px;
     }
-    .quiz-option {
-        padding: 8px 16px;
+    .tab-btn {
+        padding: 10px 12px;
         font-size: 0.8rem;
     }
-}
-
-/* ========= BRIEFE & ERINNERUNGEN ========= */
-.letters-container {
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.letter-card {
-    background: #fff5e6;
-    border-radius: 24px;
-    padding: 25px;
-    margin-bottom: 25px;
-    border-left: 6px solid #c53030;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.letter-date {
-    font-size: 0.8rem;
-    color: #b87c4f;
-    margin-bottom: 12px;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-.letter-content {
-    color: #3b2a1f;
-    line-height: 1.6;
-}
-
-.letter-content p {
-    margin-bottom: 12px;
-}
-
-.future-letter {
-    border-left-color: #b87c4f;
-    opacity: 0.7;
-}
-
-/* ========= SERIEN-MOMENTE (mit Formular) ========= */
-.moments-container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.moments-intro {
-    text-align: center;
-    color: #5a4a2e;
-    margin-bottom: 30px;
-    font-style: italic;
-}
-
-.moment-form {
-    background: #e7dbbc;
-    border-radius: 28px;
-    padding: 25px;
-    margin-bottom: 35px;
-    border: 1px solid #ffd966;
-}
-
-.moment-form h4 {
-    color: #9e2a2a;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-}
-
-.moment-form select,
-.moment-form input,
-.moment-form textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 12px;
-    border: 1px solid #b87c4f;
-    border-radius: 16px;
-    font-family: inherit;
-    background: #fff5e6;
-    font-size: 0.9rem;
-}
-
-.moment-form select:focus,
-.moment-form input:focus,
-.moment-form textarea:focus {
-    outline: none;
-    border-color: #c53030;
-    box-shadow: 0 0 5px rgba(197,48,48,0.3);
-}
-
-.save-moment-btn {
-    background: #9e2a2a;
-    border: none;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 40px;
-    cursor: pointer;
-    font-weight: bold;
-    width: 100%;
-    transition: 0.2s;
-}
-
-.save-moment-btn:hover {
-    background: #c53030;
-    transform: scale(1.01);
-}
-
-.moments-gallery {
-    margin-top: 30px;
-}
-
-.moments-gallery h4 {
-    color: #3b2a1f;
-    margin-bottom: 20px;
-    border-bottom: 2px dashed #b87c4f;
-    padding-bottom: 8px;
-}
-
-.moment-item {
-    background: #fff5e6;
-    border-radius: 20px;
-    padding: 18px;
-    margin-bottom: 15px;
-    border-left: 5px solid #c53030;
-    transition: transform 0.2s;
-    position: relative;
-}
-
-.moment-item:hover {
-    transform: translateX(5px);
-}
-
-.moment-series-badge {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.badge-criminal {
-    background: #0a1f3e;
-    color: #ffd966;
-}
-
-.badge-greys {
-    background: #2c7a6e;
-    color: white;
-}
-
-.badge-both {
-    background: #9e2a2a;
-    color: #ffd966;
-}
-
-.moment-title {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #3b2a1f;
-    margin-bottom: 8px;
-}
-
-.moment-description {
-    color: #5a4a2e;
-    line-height: 1.5;
-    margin-bottom: 10px;
-}
-
-.moment-date {
-    font-size: 0.7rem;
-    color: #bc9a6c;
-    font-style: italic;
-}
-
-.delete-moment {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: #bc9a6c;
-    transition: 0.2s;
-}
-
-.delete-moment:hover {
-    color: #c53030;
-    transform: scale(1.1);
-}
-
-.empty-moments {
-    text-align: center;
-    color: #bc9a6c;
-    padding: 40px;
-    font-style: italic;
-}
-
-/* ========= WÜNSCHE & VERSPRECHEN ========= */
-.wishes-container {
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.wish-card {
-    background: linear-gradient(135deg, #fff5e6, #ffe6cc);
-    border-radius: 28px;
-    padding: 25px;
-    margin-bottom: 25px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    border: 1px solid #ffd966;
-}
-
-.wish-year {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #9e2a2a;
-    margin-bottom: 15px;
-    display: inline-block;
-    background: #ffd966;
-    padding: 4px 16px;
-    border-radius: 30px;
-}
-
-.wish-content {
-    color: #3b2a1f;
-    line-height: 1.6;
-}
-
-.future-wish {
-    background: #f5e6d3;
-    opacity: 0.8;
-    border: 1px dashed #b87c4f;
-}
-
-.badge-life {
-    background: #e6b83e;
-    color: #3b2a1f;
-}
-
-/* ========= BILD-UPLOAD & VORSCHAU ========= */
-.image-upload-area {
-    margin: 15px 0;
-}
-
-.image-upload-label {
-    display: block;
-    background: #2c7a6e;
-    color: white;
-    padding: 10px;
-    border-radius: 30px;
-    text-align: center;
-    cursor: pointer;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-}
-
-#momentImage {
-    display: none;
-}
-
-.image-preview {
-    margin-top: 10px;
-    text-align: center;
-}
-
-.preview-thumb {
-    max-width: 150px;
-    max-height: 150px;
-    border-radius: 16px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-}
-
-.remove-image {
-    display: block;
-    margin: 8px auto 0;
-    background: #9e2a2a;
-    color: white;
-    border: none;
-    padding: 4px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.7rem;
-}
-
-.moment-image {
-    max-width: 100%;
-    max-height: 200px;
-    border-radius: 16px;
-    margin: 10px 0;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-}
-
-.moment-timestamp {
-    font-size: 0.7rem;
-    color: #bc9a6c;
-    margin-top: 10px;
-    font-style: italic;
-}
-
-.delete-moment {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: #9e2a2a;
-    color: white;
-    border: none;
-    padding: 4px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.7rem;
-    transition: 0.2s;
-}
-
-.delete-moment:hover {
-    background: #c53030;
-    transform: scale(1.05);
-}
-
-/* Badge für "Aus dem echten Leben" */
-.badge-life {
-    background: #e6b83e;
-    color: #3b2a1f;
-}
-
-/* ========= BACKUP-BEREICH ========= */
-.backup-simple {
-    margin-top: 30px;
-    padding: 20px;
-    background: linear-gradient(135deg, #e7dbbc, #fef5e0);
-    border-radius: 28px;
-    text-align: center;
-    border: 2px solid #ffd966;
-}
-
-.backup-simple-btn {
-    background: #2c7a6e;
-    border: none;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 12px 24px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-family: monospace;
-    transition: 0.2s;
-    margin: 5px;
-}
-
-.backup-simple-btn.import {
-    background: #9e2a2a;
-}
-
-.backup-simple-btn:hover {
-    transform: scale(1.02);
-}
-
-.backup-hint {
-    font-size: 0.7rem;
-    color: #5a4a2e;
-    margin-top: 12px;
-}
-
-.backup-status {
-    margin-top: 10px;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-
-/* ========= MOMENTE ========= */
-.moment-item {
-    position: relative;
-    background: #fff5e6;
-    border-radius: 20px;
-    padding: 18px;
-    margin-bottom: 15px;
-    border-left: 5px solid #c53030;
-    transition: transform 0.2s;
-}
-
-.moment-item:hover {
-    transform: translateX(5px);
-}
-
-.moment-series-badge {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.badge-criminal {
-    background: #0a1f3e;
-    color: #ffd966;
-}
-
-.badge-greys {
-    background: #2c7a6e;
-    color: white;
-}
-
-.badge-life {
-    background: #e6b83e;
-    color: #3b2a1f;
-}
-
-.badge-both {
-    background: #9e2a2a;
-    color: #ffd966;
-}
-
-.moment-title {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #3b2a1f;
-    margin-bottom: 8px;
-}
-
-.moment-description {
-    color: #5a4a2e;
-    line-height: 1.5;
-    margin-bottom: 10px;
-}
-
-.moment-timestamp {
-    font-size: 0.7rem;
-    color: #bc9a6c;
-    font-style: italic;
-}
-
-.moment-image {
-    max-width: 100%;
-    max-height: 200px;
-    border-radius: 16px;
-    margin: 10px 0;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-}
-
-.delete-moment {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: #9e2a2a;
-    color: white;
-    border: none;
-    padding: 4px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.7rem;
-}
-
-.delete-moment:hover {
-    background: #c53030;
-}
-
-.image-upload-area {
-    margin: 15px 0;
-}
-
-.image-upload-label {
-    display: block;
-    background: #2c7a6e;
-    color: white;
-    padding: 10px;
-    border-radius: 30px;
-    text-align: center;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
-#momentImage {
-    display: none;
-}
-
-.image-preview {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.preview-thumb {
-    max-width: 150px;
-    max-height: 150px;
-    border-radius: 16px;
-}
-
-.remove-image {
-    display: block;
-    margin: 8px auto 0;
-    background: #9e2a2a;
-    color: white;
-    border: none;
-    padding: 4px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-.moment-form {
-    background: #e7dbbc;
-    border-radius: 28px;
-    padding: 25px;
-    margin-bottom: 35px;
-}
-
-.moment-form h4 {
-    color: #9e2a2a;
-    margin-bottom: 15px;
-}
-
-.moment-form select,
-.moment-form input,
-.moment-form textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 12px;
-    border: 1px solid #b87c4f;
-    border-radius: 16px;
-    font-family: inherit;
-    background: #fff5e6;
-}
-
-.save-moment-btn {
-    background: #9e2a2a;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 40px;
-    width: 100%;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.empty-moments {
-    text-align: center;
-    color: #bc9a6c;
-    padding: 40px;
-    font-style: italic;
-}
-
-.loading {
-    text-align: center;
-    color: #5a4a2e;
-    padding: 20px;
-}
-
-.moments-gallery h4 {
-    color: #3b2a1f;
-    margin-bottom: 20px;
-    border-bottom: 2px dashed #b87c4f;
-    padding-bottom: 8px;
+    .character-card {
+        width: 160px;
+        padding: 15px;
+    }
+    .congrats-card {
+        width: 160px;
+    }
+    .overlay-content {
+        padding: 20px;
+    }
+    .close-overlay-x {
+        top: 10px;
+        right: 15px;
+        font-size: 1.5rem;
+    }
 }

@@ -50,7 +50,7 @@ else if (document.body.classList.contains('case-page')) {
         return diff > 0 ? diff : 0;
     }
     
-    // ---------- MOMENTE (AUTOMATISCHE SPEICHERUNG) ----------
+    // ---------- MOMENTE ----------
     let moments = [];
     
     function loadMoments() {
@@ -182,7 +182,7 @@ else if (document.body.classList.contains('case-page')) {
         }
     }
     
-    // ---------- BACKUP-FUNKTIONEN ----------
+    // Backup-Funktionen
     function exportBackup() {
         const data = JSON.stringify(moments, null, 2);
         const blob = new Blob([data], { type: 'application/json' });
@@ -512,9 +512,11 @@ else if (document.body.classList.contains('case-page')) {
             });
         }
         
-        // ---------- CHARAKTER-GRATULATION ----------
+        // ---------- CHARAKTER-GRATULATION (FIXED) ----------
         const overlay = document.getElementById('charactersOverlay');
         const congratsGrid = document.getElementById('congratsGrid');
+        const closeOverlayBtn = document.getElementById('closeOverlayBtn');
+        const closeOverlayXBtn = document.getElementById('closeOverlayXBtn');
         
         const congratsData = [
             { name: 'Penelope Garcia', avatar: '🖥️💖', message: 'Happy Birthday, Baby Girl! Du bist das strahlende Herz unseres Teams!' },
@@ -544,25 +546,36 @@ else if (document.body.classList.contains('case-page')) {
             }
         }
         
+        function closeOverlay() {
+            if (overlay) overlay.style.display = 'none';
+        }
+        
+        if (closeOverlayBtn) {
+            closeOverlayBtn.addEventListener('click', closeOverlay);
+        }
+        if (closeOverlayXBtn) {
+            closeOverlayXBtn.addEventListener('click', closeOverlay);
+        }
+        if (overlay) {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    closeOverlay();
+                }
+            });
+        }
+        
         if (celebrateBtn) {
             celebrateBtn.addEventListener('click', () => {
                 if (isBirthdayToday()) {
                     showCongratsOverlay();
                     if (secretDiv) secretDiv.classList.add('show');
-                    celebrateBtn.innerText = '🎂 GLÜCKWUNSCH, VIVIANA! 🎂';
+                    celebrateBtn.innerText = '🎂 ALLES GUTE, VIVIII! 🎂';
                     setTimeout(() => {
                         celebrateBtn.innerText = '🔎 FALL SCHLIESSEN • OP ERFOLGREICH 🎉';
                     }, 3000);
                 } else {
                     showLockedMessage(celebrateBtn, '🔒 Feier freigeschaltet am 9. September');
                 }
-            });
-        }
-        
-        const closeOverlayBtn = document.getElementById('closeOverlayBtn');
-        if (closeOverlayBtn) {
-            closeOverlayBtn.addEventListener('click', () => {
-                if (overlay) overlay.style.display = 'none';
             });
         }
         
@@ -592,7 +605,6 @@ else if (document.body.classList.contains('case-page')) {
     initTabs();
     updateLockedTabs();
     
-    // Event-Listener für Moment-Formular
     const saveMomentBtn = document.getElementById('saveMomentBtn');
     if (saveMomentBtn) {
         saveMomentBtn.addEventListener('click', () => {

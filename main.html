@@ -27,7 +27,7 @@
             <button class="tab-btn" data-tab="moments" id="momentsTabBtn">📸 Momente 🔒</button>
         </div>
 
-        <!-- TAB 1: Profil (immer sichtbar) -->
+        <!-- TAB 1: Profil -->
         <div class="tab-content active" id="tab-profile">
             <div class="file-content">
                 <div class="column left-column">
@@ -73,7 +73,7 @@
             </div>
         </div>
 
-        <!-- TAB 3: Momente (mit automatischer Speicherung) -->
+        <!-- TAB 3: Momente -->
         <div class="tab-content" id="tab-moments">
             <div class="locked-content" id="momentsLocked">
                 <div class="lock-icon">🔒</div>
@@ -87,36 +87,29 @@
                     <strong>Alles wird automatisch gespeichert!</strong> 💖
                 </p>
                 
-                <!-- Eingabe-Formular -->
                 <div class="moment-form">
                     <h4>📝 Neuen Moment hinzufügen</h4>
-                    
                     <select id="momentType">
                         <option value="criminal">🔍 Criminal Minds</option>
                         <option value="greys">🩺 Grey's Anatomy</option>
                         <option value="life">💫 Aus dem echten Leben</option>
                         <option value="both">🌟 Allgemein / Beides</option>
                     </select>
-                    
                     <input type="text" id="momentTitle" placeholder="Titel / Überschrift">
                     <textarea id="momentDescription" rows="3" placeholder="Beschreibe deine Erinnerung..."></textarea>
-                    
                     <div class="image-upload-area">
                         <label for="momentImage" class="image-upload-label">📷 Bild hinzufügen (optional)</label>
                         <input type="file" id="momentImage" accept="image/*">
                         <div id="imagePreview" class="image-preview"></div>
                     </div>
-                    
                     <button id="saveMomentBtn" class="save-moment-btn">✨ Moment speichern ✨</button>
                 </div>
                 
-                <!-- Anzeige der gespeicherten Momente -->
                 <div class="moments-gallery">
                     <h4>📖 Meine gesammelten Momente</h4>
                     <div id="momentsList"></div>
                 </div>
                 
-                <!-- Backup-Bereich (für dauerhafte Sicherung) -->
                 <div class="backup-simple">
                     <button id="exportBackupBtn" class="backup-simple-btn">💾 Alle Momente als Backup speichern</button>
                     <button id="importBackupBtn" class="backup-simple-btn import">📂 Backup wiederherstellen</button>
@@ -154,8 +147,10 @@
             🕵️‍♀️🌹🏥
         </div>
 
+        <!-- CHARAKTER-OVERLAY (FIXED) -->
         <div id="charactersOverlay" class="characters-overlay" style="display: none;">
             <div class="overlay-content">
+                <button class="close-overlay-x" id="closeOverlayXBtn">✖</button>
                 <h2>🎉 Deine Lieblingscharaktere gratulieren! 🎉</h2>
                 <div class="congrats-grid" id="congratsGrid"></div>
                 <button id="closeOverlayBtn" class="close-overlay">✨ Schließen ✨</button>
