@@ -31,6 +31,7 @@
             <button class="tab-btn" data-tab="letters" id="lettersTabBtn">💌 Briefe & Erinnerungen 🔒</button>
             <button class="tab-btn" data-tab="moments" id="momentsTabBtn">📸 Momente 🔒</button>
             <button class="tab-btn" data-tab="quiz" id="quizTabBtn">❓ Serien-Quiz 🔒</button>
+            <button class="tab-btn" data-tab="facts" id="factsTabBtn">📖 Wusstest du? 🔒</button>
         </div>
 
         <!-- TAB 1: Profil -->
@@ -128,7 +129,7 @@
             </div>
         </div>
 
-        <!-- TAB 4: Serien-Quiz (gesperrt bis 9.9.) -->
+        <!-- TAB 4: Serien-Quiz -->
         <div class="tab-content" id="tab-quiz">
             <div class="locked-content" id="quizLocked">
                 <div class="lock-icon">🔒</div>
@@ -150,6 +151,30 @@
                 <div class="quiz-feedback" id="quizFeedback"></div>
                 <button id="nextQuestionBtn" class="quiz-next" style="display: none;">Nächste Frage →</button>
                 <div class="quiz-result" id="quizResult" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- TAB 5: Wusstest du? (Fakten) -->
+        <div class="tab-content" id="tab-facts">
+            <div class="locked-content" id="factsLocked">
+                <div class="lock-icon">🔒</div>
+                <h3>Wusstest du? – gesperrt</h3>
+                <p>Die täglichen Fakten werden am <strong>9. September</strong> freigeschaltet.</p>
+            </div>
+            <div class="facts-container" id="factsUnlocked" style="display: none;">
+                <div class="facts-header">
+                    <span class="facts-icon">🌍</span>
+                    <h3>Wusstest du schon?</h3>
+                    <span class="facts-icon">✨</span>
+                </div>
+                <div class="fact-card" id="factCard">
+                    <div class="fact-text" id="factText">
+                        📡 Lade interessanten Fakt...
+                    </div>
+                    <div class="fact-source" id="factSource"></div>
+                </div>
+                <button id="newFactBtn" class="new-fact-btn">🔄 Neuen Fakt holen</button>
+                <p class="facts-hint">💡 Täglich ein neuer Fakt – oder klick für mehr Wissen!</p>
             </div>
         </div>
 

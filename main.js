@@ -43,14 +43,14 @@ else if (document.body.classList.contains('case-page')) {
     }
     
     function isUnlockedForever() {
-        const unlocked = localStorage.getItem('viviana_birthday_unlocked');
-        if (unlocked === 'true') return true;
-        if (isBirthdayToday()) {
-            localStorage.setItem('viviana_birthday_unlocked', 'true');
-            return true;
-        }
-        return false;
+    const unlocked = localStorage.getItem('viviana_birthday_unlocked');
+    if (unlocked === 'true') return true;
+    if (isBirthdayToday()) {
+        localStorage.setItem('viviana_birthday_unlocked', 'true');
+        return true;
     }
+    return false;
+}
     
     function getDaysUntilBirthday() {
         const today = new Date();
@@ -435,6 +435,76 @@ Marley`,
         }
     }
     
+    // ---------- WUSSTEST DU? (Fakten) ----------
+    const factAPI = 'https://uselessfacts.jsph.pl/api/v2/facts/random?language=de';
+    
+    async function fetchRandomFact() {
+        const factTextEl = document.getElementById('factText');
+        const factSourceEl = document.getElementById('factSource');
+        
+        if (factTextEl) factTextEl.innerHTML = '📡 Lade Fakt...';
+        
+        try {
+            const response = await fetch(factAPI);
+            const data = await response.json();
+            
+            if (factTextEl) {
+                factTextEl.innerHTML = `📖 ${data.text}`;
+            }
+            if (factSourceEl) {
+                factSourceEl.innerHTML = `📅 Fakt des Tages | Quelle: uselessfacts.jsph.pl`;
+            }
+            
+            if (typeof canvasConfetti !== 'undefined') {
+                canvasConfetti({ particleCount: 30, spread: 40, colors: ['#e6b422', '#2c7a6e'] });
+            }
+        } catch (error) {
+            console.error('Fehler beim Laden des Fakts:', error);
+            if (factTextEl) {
+                factTextEl.innerHTML = '⚠️ Kein Fakt geladen. Bitte später erneut versuchen.';
+            }
+            if (factSourceEl) {
+                factSourceEl.innerHTML = 'Quelle: Offline-Fakten';
+            }
+        }
+    }
+    
+    function loadDailyFact() {
+        const lastFactDate = localStorage.getItem('last_fact_date');
+        const today = new Date().toDateString();
+        
+        if (lastFactDate === today) {
+            const savedFact = localStorage.getItem('daily_fact');
+            if (savedFact) {
+                const factTextEl = document.getElementById('factText');
+                if (factTextEl) factTextEl.innerHTML = `📖 ${savedFact}`;
+            }
+        } else {
+            fetchRandomFact().then(() => {
+                const factTextEl = document.getElementById('factText');
+                if (factTextEl) {
+                    const factText = factTextEl.innerHTML.replace('📖 ', '');
+                    localStorage.setItem('daily_fact', factText);
+                    localStorage.setItem('last_fact_date', today);
+                }
+            });
+        }
+    }
+    
+    function setupFactsTab() {
+        const newFactBtn = document.getElementById('newFactBtn');
+        if (newFactBtn) {
+            newFactBtn.addEventListener('click', () => {
+                fetchRandomFact();
+                if (typeof canvasConfetti !== 'undefined') {
+                    canvasConfetti({ particleCount: 50, spread: 50, colors: ['#e6b422', '#2c7a6e'] });
+                }
+            });
+        }
+        
+        loadDailyFact();
+    }
+    
     // ---------- BLUR-EFFEKT ----------
     function updateBlurEffect() {
         const isUnlocked = isUnlockedForever();
@@ -465,10 +535,12 @@ Marley`,
         const lettersTab = document.getElementById('lettersTabBtn');
         const momentsTab = document.getElementById('momentsTabBtn');
         const quizTab = document.getElementById('quizTabBtn');
+        const factsTab = document.getElementById('factsTabBtn');
         
         if (lettersTab) lettersTab.innerHTML = isUnlocked ? '💌 Briefe & Erinnerungen' : '💌 Briefe & Erinnerungen 🔒';
         if (momentsTab) momentsTab.innerHTML = isUnlocked ? '📸 Momente' : '📸 Momente 🔒';
         if (quizTab) quizTab.innerHTML = isUnlocked ? '❓ Serien-Quiz' : '❓ Serien-Quiz 🔒';
+        if (factsTab) factsTab.innerHTML = isUnlocked ? '📖 Wusstest du?' : '📖 Wusstest du? 🔒';
         
         const lettersLocked = document.getElementById('lettersLocked');
         const lettersUnlocked = document.getElementById('lettersUnlocked');
@@ -476,6 +548,8 @@ Marley`,
         const momentsUnlocked = document.getElementById('momentsUnlocked');
         const quizLocked = document.getElementById('quizLocked');
         const quizUnlocked = document.getElementById('quizUnlocked');
+        const factsLocked = document.getElementById('factsLocked');
+        const factsUnlocked = document.getElementById('factsUnlocked');
         
         if (lettersLocked && lettersUnlocked) {
             if (isUnlocked) {
@@ -511,6 +585,16 @@ Marley`,
                 quizUnlocked.style.display = 'none';
             }
         }
+        if (factsLocked && factsUnlocked) {
+            if (isUnlocked) {
+                factsLocked.style.display = 'none';
+                factsUnlocked.style.display = 'block';
+                setupFactsTab();
+            } else {
+                factsLocked.style.display = 'block';
+                factsUnlocked.style.display = 'none';
+            }
+        }
         
         updateBlurEffect();
     }
@@ -528,12 +612,17 @@ Marley`,
                 if (tabId === 'letters' && !isUnlockedForever()) return;
                 if (tabId === 'moments' && !isUnlockedForever()) return;
                 if (tabId === 'quiz' && !isUnlockedForever()) return;
+                if (tabId === 'facts' && !isUnlockedForever()) return;
                 
                 tabBtns.forEach(b => b.classList.remove('active'));
                 tabContents.forEach(c => c.classList.remove('active'));
                 
                 btn.classList.add('active');
                 if (targetContent) targetContent.classList.add('active');
+                
+                if (tabId === 'facts' && isUnlockedForever()) {
+                    loadDailyFact();
+                }
                 
                 if (tabId === 'profile') {
                     updateBlurEffect();
